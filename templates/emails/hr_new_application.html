@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { margin: 0; padding: 0; background-color: #f4f7f9; font-family: 'Segoe UI', Arial, sans-serif; }
+        .email-wrapper { width: 100%; padding: 40px 0; }
+        .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header { background: #00158b; color: #ffffff; text-align: center; padding: 25px; font-size: 20px; font-weight: bold; }
+        .content { padding: 40px; color: #444; }
+        .icon-box { text-align: center; font-size: 40px; margin-bottom: 10px; }
+        h2 { text-align: center; color: #1a202c; margin: 0 0 10px 0; }
+        .alert-pill { background: #fffaf0; border: 1px solid #fbd38d; color: #c05621; padding: 8px; text-align: center; border-radius: 6px; font-size: 13px; margin-bottom: 25px; }
+        
+        /* Fixed Table Alignment */
+        .info-table { width: 100%; background: #f8fafc; border-radius: 10px; padding: 15px; border-collapse: collapse; table-layout: fixed; }
+        .info-table td { padding: 12px 8px; border-bottom: 1px solid #edf2f7; font-size: 14px; vertical-align: top; word-wrap: break-word; }
+        .label { font-weight: bold; color: #718096; width: 40%; text-align: left; }
+        .value { font-weight: bold; color: #2d3748; width: 60%; text-align: left; }
+        
+        .btn-container { text-align: center; margin-top: 30px; }
+        .view-btn { background: #1f5fbf; color: #ffffff !important; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; }
+        .footer { text-align: center; padding: 20px; font-size: 11px; color: #cbd5e0; }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-container">
+            <div class="header">Internal Notification</div>
+            <div class="content">
+                <div class="icon-box">📨</div>
+                <h2>New Candidate Applied</h2>
+                <div class="alert-pill">Action required: Review new application</div>
+
+                <table class="info-table">
+                    <tr>
+                        <td class="label">Candidate Name</td>
+                        <td class="value">{{ candidate_name }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Email Address</td>
+                        <td class="value">{{ candidate_email }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Mobile Number</td>
+                        <td class="value">{{ mobile_num }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Target Position</td>
+                        <td class="value">{{ job_title }}</td>
+                    </tr>
+                </table>
+
+                <div class="btn-container">
+                    <a href="{{ resume_url }}" class="view-btn">View Resume PDF</a>
+                </div>
+            </div>
+            <div class="footer">Automated System Notification - Deegenex HR Portal</div>
+        </div>
+    </div>
+</body>
+</html>

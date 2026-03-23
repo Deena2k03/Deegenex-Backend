@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { margin: 0; padding: 0; background-color: #f4f7f9; font-family: 'Segoe UI', Arial, sans-serif; }
+        .email-wrapper { width: 100%; padding: 40px 0; }
+        .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header { background: #000471; color: #ffffff; text-align: center; padding: 25px; font-size: 20px; font-weight: bold; }
+        .content { padding: 40px; text-align: center; color: #444; }
+        .icon-box { font-size: 50px; margin-bottom: 10px; }
+        h2 { color: #1a202c; margin: 0 0 10px 0; font-size: 24px; }
+        .info-table { width: 100%; background: #f8fafc; border-radius: 10px; border-collapse: collapse; table-layout: fixed; margin: 20px 0; }
+        .info-table td { padding: 14px 20px; border-bottom: 1px solid #edf2f7; font-size: 15px; vertical-align: middle; }
+        .info-table tr:last-child td { border-bottom: none; }
+        .label { font-weight: bold; color: #718096; width: 40%; text-align: left; }
+        .value { font-weight: bold; color: #2d3748; width: 60%; text-align: left; }
+        .instruction-box { text-align: left; background: #fffaf0; border-left: 4px solid #f6ad55; padding: 15px 20px; margin: 20px 0; font-size: 14px; }
+        .btn-container { margin-top: 30px; }
+        .join-btn { background: #28a745; color: #ffffff !important; padding: 14px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; }
+        .footer { text-align: center; padding: 20px; font-size: 13px; color: #a0aec0; }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-container">
+            <div class="header">{{ subject }}</div>
+            <div class="content">
+                <div class="icon-box">🎊</div>
+                <h2>Congratulations!</h2>
+                <p>Hello <b>{{ candidate_name }}</b>, we are pleased to inform you that your application stood out! We would like to invite you for a virtual interview.</p>
+                
+                <table class="info-table">
+                    <tr><td class="label">📅 Date</td><td class="value">{{ interview_date }}</td></tr>
+                    <tr><td class="label">⏰ Time</td><td class="value">{{ interview_time }}</td></tr>
+                    <tr><td class="label">💻 Platform</td><td class="value">Google Meet</td></tr>
+                </table>
+
+                <div class="instruction-box">
+                    <strong>Instructions:</strong><br>
+                    1. Please ensure a stable internet connection.<br>
+                    2. Keep your camera and microphone on during the session.<br>
+                    3. Kindly join the meet before 5 minutes.
+                </div>
+
+                <div class="btn-container">
+                    <a href="{{ meet_link }}" class="join-btn">🎥 Join Interview</a>
+                </div>
+            </div>
+            <div class="footer">© {% now "Y" %} Deegenex HR Team | hr@deegenex.com</div>
+        </div>
+    </div>
+</body>
+</html>

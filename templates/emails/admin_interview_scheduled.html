@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { margin: 0; padding: 0; background-color: #f4f7f9; font-family: 'Segoe UI', Arial, sans-serif; }
+        .email-wrapper { width: 100%; padding: 40px 0; }
+        .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header { background: #2d3748; color: #ffffff; text-align: center; padding: 25px; font-size: 20px; font-weight: bold; }
+        .content { padding: 40px; color: #444; }
+        .info-table { width: 100%; background: #f8fafc; border-radius: 10px; border-collapse: collapse; table-layout: fixed; }
+        .info-table td { padding: 14px 20px; border-bottom: 1px solid #edf2f7; font-size: 14px; }
+        .label { font-weight: bold; color: #718096; width: 40%; }
+        .value { font-weight: bold; color: #2d3748; width: 60%; }
+        .section-header { background: #edf2f7; font-weight: bold; padding: 12px 20px !important; color: #4a5568; text-transform: uppercase; font-size: 12px; }
+        .btn-container { text-align: center; margin-top: 30px; }
+        .join-btn { background: #28a745; color: #ffffff !important; padding: 14px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-container">
+            <div class="header">Interview Logged - Admin Notification</div>
+            <div class="content">
+                <table class="info-table">
+                    <tr><td colspan="2" class="section-header">Candidate Details</td></tr>
+                    <tr><td class="label">👤 Name</td><td class="value">{{ candidate_name }}</td></tr>
+                    <tr><td class="label">📧 Email</td><td class="value">{{ candidate_email }}</td></tr>
+                    <tr><td class="label">📞 Mobile</td><td class="value">{{ candidate_phone }}</td></tr>
+                    <tr><td class="label">📄 Resume</td><td class="value"><a href="{{ resume_url }}">View PDF</a></td></tr>
+                    
+                    <tr><td colspan="2" class="section-header">Interview Schedule</td></tr>
+                    <tr><td class="label">📅 Date</td><td class="value">{{ interview_date }}</td></tr>
+                    <tr><td class="label">⏰ Time</td><td class="value">{{ interview_time }}</td></tr>
+                </table>
+
+                <div class="btn-container">
+                    <a href="{{ meet_link }}" class="join-btn">🎥 Join Google Meet</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

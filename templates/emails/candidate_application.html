@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { margin: 0; padding: 0; background-color: #f4f7f9; font-family: 'Segoe UI', Arial, sans-serif; }
+        .email-wrapper { width: 100%; padding: 40px 0; }
+        .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header { background: #0015b1; color: #ffffff; text-align: center; padding: 25px; font-size: 20px; font-weight: bold; }
+        .content { padding: 40px; text-align: center; color: #444; }
+        .icon-box { font-size: 40px; margin-bottom: 10px; }
+        h2 { color: #1a202c; margin: 0 0 10px 0; }
+        .subtitle { color: #718096; margin-bottom: 30px; }
+        .info-table { width: 100%; background: #f8fafc; border-radius: 10px; padding: 20px; text-align: left; border-collapse: collapse; }
+        .info-table td { padding: 12px 0; border-bottom: 1px solid #edf2f7; font-size: 14px; }
+        .info-table td:last-child { border-bottom: none; text-align: right; font-weight: bold; color: #1f5fbf; }
+        .text-body { text-align: left; margin-top: 30px; line-height: 1.6; font-size: 15px; }
+        .footer { text-align: center; padding: 20px; font-size: 12px; color: #a0aec0; }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-container">
+            <div class="header">Deegenex – Application Received</div>
+            <div class="content">
+                <div class="icon-box">🎉</div>
+                <h2>Success!</h2>
+                <p class="subtitle">Your application has been successfully submitted.</p>
+
+                <table class="info-table">
+                    <tr>
+                        <td>💼 Position</td>
+                        <td>{{ job_title }}</td>
+                    </tr>
+                    <tr>
+                        <td>📅 Applied Date</td>
+                        <td>{% now "F j, Y" %}</td>
+                    </tr>
+                </table>
+
+                <div class="text-body">
+                    <p>Dear <b>{{ candidate_name }}</b>,</p>
+                    <p>Thank you for your interest in joining <b>Deegenex</b>. We have received your application for the <b>{{ job_title }}</b> role.</p>
+                    <p>Our hiring team is currently reviewing all profiles. If your experience matches our requirements, we will reach out to schedule an interview.</p>
+                    <br>
+                    <p>Best regards,<br><b>HR Team</b><br>Deegenex</p>
+                </div>
+            </div>
+            <div class="footer">&copy; {% now "Y" %} Deegenex. All rights reserved.</div>
+        </div>
+    </div>
+</body>
+</html>
