@@ -26,5 +26,5 @@ urlpatterns = [
 ]
 
 # Serve Media files during development
-if settings.DEBUG:
+if settings.DEBUG and not os.getenv('AWS_STORAGE_BUCKET_NAME'):
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
