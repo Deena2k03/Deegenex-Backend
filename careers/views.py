@@ -56,7 +56,7 @@ def apply_job(request):
             application.save()
 
         job_name = application.job.title if application.job else "General Position"
-        resume_full_url = application.resume.url
+        resume_full_url = request.build_absolute_uri(application.resume.url)
 
         # 1. Send Email to Candidate (Matched to your file: candidate_application.html)
         candidate_html = render_to_string(
