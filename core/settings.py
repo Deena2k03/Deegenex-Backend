@@ -240,11 +240,7 @@ EMAIL_FROM = config("EMAIL_FROM")
 HR_EMAIL = config("HR_EMAIL")
 
 
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    )
-}
+
 
 AWS_QUERYSTRING_AUTH = False
 
