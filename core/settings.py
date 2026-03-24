@@ -41,8 +41,7 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
 
-# Force the full S3 path
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.ap-south-1.amazonaws.com'
+
 AWS_S3_URL_PROTOCOL = 'https'
 
 
@@ -242,13 +241,21 @@ HR_EMAIL = config("HR_EMAIL")
 
 
 
+# core/settings.py
+
 AWS_QUERYSTRING_AUTH = False
+
+# Ensure this matches your S3 bucket exactly
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.ap-south-1.amazonaws.com'
 
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "custom_domain": AWS_S3_CUSTOM_DOMAIN, # <--- ADD THIS LINE
+        },
     },
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
