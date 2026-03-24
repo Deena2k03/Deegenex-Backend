@@ -1,18 +1,13 @@
 from rest_framework import serializers
 from .models import Job
 
-
 class JobSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
-
     class Meta:
         model = Job
         fields = "__all__"
 
-    def get_image(self, obj):
-        request = self.context.get('request')
-
-        if obj.image:
-            return obj.image.url
-
-        return None
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        if instance.image:
+            rep['image'] = instance.image.url
+        return rep
