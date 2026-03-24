@@ -235,7 +235,7 @@ AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
 
 # This is the "Master Switch" for the URL protocol
-AWS_S3_URL_PROTOCOL = 'https' 
+AWS_S3_URL_PROTOCOL = 'https:' 
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
@@ -252,6 +252,8 @@ STORAGES = {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
             "custom_domain": AWS_S3_CUSTOM_DOMAIN,
+            "url_protocol": "https:", # <--- ADD THIS with the colon
+            "secure_urls": True,      # <--- ADD THIS
         },
     },
     "staticfiles": {
