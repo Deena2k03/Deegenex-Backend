@@ -14,6 +14,10 @@ from pathlib import Path
 from decouple import config
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,11 +31,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['api.deegenex.com','43.205.198.69','deegenex.com']
+
+# S3 Configuration
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
+
+# Force the full S3 path
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.ap-south-1.amazonaws.com'
+AWS_S3_URL_PROTOCOL = 'https'
 
 
+# This makes sure uploaded files are stored in S3 instead of EC2
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Ensures files don't overwrite each other
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
 
 # Application definition
 
@@ -56,6 +76,7 @@ INSTALLED_APPS = [
     'meetings',
     'contact',
     "client_meetings",
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -147,6 +168,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 REST_FRAMEWORK = {
 
@@ -172,7 +194,7 @@ CONTENT_SECURITY_POLICY = {
         "default-src": ("'self'",),
         "script-src": ("'self'",),
         "style-src": ("'self'", "'unsafe-inline'"),
-        "img-src": ("'self'", "data:"),
+        "img-src": ("'self'", "data:", "deegenex-uploads.s3.amazonaws.com", "deegenex-uploads.s3.ap-south-1.amazonaws.com"),
     }
 }
 
@@ -211,8 +233,6 @@ SIMPLE_JWT = {
 }
 
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
@@ -226,4 +246,13 @@ REST_FRAMEWORK = {
     )
 }
 
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
