@@ -234,29 +234,21 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
 
-# This is the "Master Switch" for the URL protocol
-AWS_S3_URL_PROTOCOL = 'https:' 
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-
-# This is exactly where your 'missing colon' bug was hiding. 
-# We use 'https://' to ensure the protocol is explicitly defined.
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+AWS_QUERYSTRING_AUTH = False
 
-# In Django 4.2+, use the STORAGES dictionary. 
-# REMOVE the old 'DEFAULT_FILE_STORAGE' line you have higher up in the file.
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
             "custom_domain": AWS_S3_CUSTOM_DOMAIN,
-            "url_protocol": "https:", # <--- ADD THIS with the colon
-            "secure_urls": True,      # <--- ADD THIS
+            "url_protocol": "https",  # Use "https" (no colon here)
         },
     },
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
+
+# Add this line at the bottom to be absolutely safe
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
