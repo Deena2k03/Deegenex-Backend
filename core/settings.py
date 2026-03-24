@@ -246,6 +246,8 @@ REST_FRAMEWORK = {
     )
 }
 
+AWS_QUERYSTRING_AUTH = False
+
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
 STORAGES = {
