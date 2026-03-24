@@ -14,7 +14,7 @@ from .serializers import JobSerializer
 @permission_classes([AllowAny]) # HIGH SECURITY
 def get_jobs(request):
     jobs = Job.objects.all().order_by('-created_at')
-    serializer = JobSerializer(jobs, many=True)
+    serializer = JobSerializer(jobs, many=True, context={'request': request})
     return Response(serializer.data)
 
 
@@ -28,7 +28,7 @@ def get_job(request, id=None, slug=None):
     elif slug:
         job = get_object_or_404(Job, slug=slug)
 
-    serializer = JobSerializer(job)
+    serializer = JobSerializer(job, context={'request': request})
 
     return Response(serializer.data)
 
@@ -36,7 +36,7 @@ def get_job(request, id=None, slug=None):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated]) # HIGH SECURITY
 def create_job(request):
-    serializer = JobSerializer(data=request.data)
+    serializer = JobSerializer(data=request.data, context={'request': request})
 
     if serializer.is_valid():
         serializer.save()
@@ -50,7 +50,7 @@ def create_job(request):
 def update_job(request, id):
     job = get_object_or_404(Job, id=id)
 
-    serializer = JobSerializer(job, data=request.data, partial=True)
+    serializer = JobSerializer(job, data=request.data, partial=True, context={'request': request})
 
     if serializer.is_valid():
         serializer.save()
