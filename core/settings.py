@@ -193,7 +193,11 @@ CONTENT_SECURITY_POLICY = {
         "default-src": ("'self'",),
         "script-src": ("'self'",),
         "style-src": ("'self'", "'unsafe-inline'"),
-        "img-src": ("'self'", "data:", "deegenex-uploads.s3.amazonaws.com", "deegenex-uploads.s3.ap-south-1.amazonaws.com"),
+        "img-src": (
+            "'self'", 
+            "data:", 
+            "https://deegenex-uploads.s3.ap-south-1.amazonaws.com",
+        ),
     }
 }
 
