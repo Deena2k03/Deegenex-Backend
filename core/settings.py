@@ -242,7 +242,7 @@ STORAGES = {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
             "custom_domain": AWS_S3_CUSTOM_DOMAIN,
-            "url_protocol": "https",  # Use "https" (no colon here)
+            "url_protocol": "https:",   # ✅ FIXED HERE
         },
     },
     "staticfiles": {
@@ -250,5 +250,4 @@ STORAGES = {
     },
 }
 
-# Add this line at the bottom to be absolutely safe
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
