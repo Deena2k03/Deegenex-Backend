@@ -35,23 +35,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['api.deegenex.com','43.205.198.69','deegenex.com']
 
-# S3 Configuration
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
-
-
-AWS_S3_URL_PROTOCOL = 'https'
-
-
-# This makes sure uploaded files are stored in S3 instead of EC2
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# Ensures files don't overwrite each other
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -245,20 +228,30 @@ HR_EMAIL = config("HR_EMAIL")
 
 
 
-# core/settings.py
+# --- S3 Configuration ---
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
 
+# This is the "Master Switch" for the URL protocol
+AWS_S3_URL_PROTOCOL = 'https' 
 AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
 
-# Ensure this matches your S3 bucket exactly
+# This is exactly where your 'missing colon' bug was hiding. 
+# We use 'https://' to ensure the protocol is explicitly defined.
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
-MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/'
-
+# In Django 4.2+, use the STORAGES dictionary. 
+# REMOVE the old 'DEFAULT_FILE_STORAGE' line you have higher up in the file.
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
-            "custom_domain": AWS_S3_CUSTOM_DOMAIN, # <--- ADD THIS LINE
+            "custom_domain": AWS_S3_CUSTOM_DOMAIN,
         },
     },
     "staticfiles": {
