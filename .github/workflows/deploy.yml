@@ -23,3 +23,6 @@ jobs:
             pip install -r requirements.txt
             python3 manage.py migrate
             pm2 restart django-backend
+            # Clean up old build traces and temp files
+            sudo apt-get autoremove -y
+            find . -type d -name "__pycache__" -exec rm -rf {} +
